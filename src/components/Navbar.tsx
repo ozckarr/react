@@ -4,14 +4,14 @@ import React, { CSSProperties } from "react";
 export default function Navbar () {
     return(
             <header >
-                <h1 style={title}>React Playground</h1>
+                <h1 style={title}>REACT PLAYGROUND</h1>
             </header>
     )
 
 }
 
 const title: CSSProperties = {
-    color: 'white',
-    padding: '1em',
-    fontSize: '1em'
+    color: '#043927',
+    paddingLeft: '1em',
+    fontSize: '3vh'
 }

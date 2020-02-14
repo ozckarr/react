@@ -13,8 +13,6 @@ export default function Layout () {
 }
 
 const background: CSSProperties = {
-    backgroundColor: 'black',
     height: '100%',
-    fontFamily: "'Roboto', sans-serif"
-
+    fontFamily: "'Open Sans', sans-serif"
 }
