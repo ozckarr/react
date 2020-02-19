@@ -1,28 +1,46 @@
 import React, { CSSProperties } from "react";
 
-export default function SectionItem () {
+interface Props {
+    fruitText: string; 
+    fruitImg: string; 
+}
+ 
+function SectionItem (props: Props) {
+
+    const imgFlex: React.CSSProperties = {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        height: '30%',
+        width: '100%',
+        position: 'relative'
+    }
+
+    const textSectionItem: CSSProperties = {
+        position: 'absolute',
+        color: '#2E8B57',
+        fontSize: 'min(11vw, 376px)',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        top: '-20%',
+        translate: 'translate(50%, -50%)'
+    }    
+
+    const imgSectionItem: CSSProperties = {
+        width: '100%',
+        margin: '1em 0',
+        height: '26vh',
+        backgroundSize: 'cover',
+        backgroundImage: `url(${props.fruitImg})`
+    }
+
     return (
-        <div>
-            <p style={textSectionItem}>BANANA</p>
+        <div style={imgFlex}>
+            <p style={textSectionItem}>{props.fruitText}</p>
             <div style={imgSectionItem}></div>
         </div>
     )
-
 }
 
-const imgSectionItem: CSSProperties = {
-    width: '100%',
-    margin: '1em 0',
-    height: '28vh',
-    backgroundSize: 'cover',
-    backgroundImage: 'url("https://source.unsplash.com/collection/9538188/1600x900")'
-}
-
-const textSectionItem: CSSProperties = {
-    position: 'absolute',
-    color: '#2E8B57',
-    fontSize: '13vh',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-}
-
+export default SectionItem

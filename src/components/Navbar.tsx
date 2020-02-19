@@ -4,7 +4,7 @@ import React, { CSSProperties } from "react";
 export default function Navbar () {
     return(
             <header >
-                <h1 style={title}>REACT PLAYGROUND</h1>
+                <h1 style={title}>REACT FRUIT SALAD</h1>
             </header>
     )
 
