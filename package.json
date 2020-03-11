@@ -1,40 +1,31 @@
 {
-  "name": "reactPlayGround",
+  "name": "react-playground",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "app": "npm-run-all --parallel build-watch live-server",
+    "build": "webpack-cli",
     "build-watch": "webpack-cli --watch",
-    "live-server": "live-server"
+    "live-server": "live-server --entry-file=index.html --no-browser"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ozckarr/reactPlayGround.git"
-  },
-  "keywords": [],
-  "author": "",
+  "author": "David Jensen",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/ozckarr/reactPlayGround/issues"
-  },
-  "homepage": "https://github.com/ozckarr/reactPlayGround#readme",
-  "devDependencies": {
-    "@types/react": "^16.9.19",
-    "@types/react-dom": "^16.9.5",
-    "add": "^2.0.6",
-    "or": "^0.2.0",
-    "source-map-loader": "^0.2.4",
-    "ts-loader": "^6.2.1",
-    "typescript": "^3.7.5",
-    "webpack": "^4.41.6",
-    "webpack-cli": "^3.3.11",
-    "yarn": "^1.22.0"
-  },
   "dependencies": {
-    "live-server": "^1.2.1",
+    "@types/react": "^16.8.6",
+    "@types/react-dom": "^16.8.2",
+    "@types/react-router-dom": "^4.3.1",
+    "axios": "^0.19.2",
+    "react": "^16.8.3",
+    "react-dom": "^16.8.3",
+    "react-router-dom": "^4.3.1",
+    "react-spinners": "^0.5.1"
+  },
+  "devDependencies": {
+    "awesome-typescript-loader": "^5.2.1",
     "npm-run-all": "^4.1.5",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0"
+    "source-map-loader": "^0.2.4",
+    "typescript": "^3.3.3333",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.2.3"
   }
 }

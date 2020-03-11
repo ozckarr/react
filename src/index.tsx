@@ -1,10 +1,6 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-import App from "./components/App";
+import App from './components/app';
 
-ReactDOM.render(
-    <App /*compiler="snörvel" framework="korv"*/ />,
-    document.getElementById("example")
-);
-
+ReactDOM.render(<App/>, document.getElementById("app-root"));
