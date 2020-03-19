@@ -1,26 +1,35 @@
 import React, { CSSProperties } from 'react';
 import { Link } from 'react-router-dom';
+import { ThemeContext, ThemePalette } from '../contexts/themeContext';
 
 /** React function component */
 export default function Navbar() {
-
+    
     return (
-        <div style={navbar}>
-            <Link to="/" style={navbarItem}>Kalle Korv</Link>
-        </div>
+        <ThemeContext.Consumer>
+            {({ theme, toggleTheme }) => (
+                <div style={navbar(theme)}>
+                    <Link to="/" style={navbarItem(theme)}>React Playground</Link>
+                    <button onClick={toggleTheme}>
+                        Toggle
+                    </button>
+                </div>
+            )}
+        </ThemeContext.Consumer>
     );
 }
 
-const navbar: CSSProperties = {
+const navbar = (theme: ThemePalette): CSSProperties => ({
     height: '4em',
     minHeight: '4em',
-    background: 'black',
+    background: theme.background.primary,
     display: 'flex',
     alignItems: 'stretch',
+    justifyContent: 'space-between',
     padding: '0 1em'
-};
+});
 
-const navbarItem: CSSProperties = {
+const navbarItem = (theme: ThemePalette): CSSProperties => ({
     fontSize: '1.7em',
     margin: 0,
     padding: 0,
@@ -28,5 +37,5 @@ const navbarItem: CSSProperties = {
     alignItems: 'center',
     cursor: 'pointer',
     textDecoration: 'none',
-    color: '#E1E1E1',
-};
+    color: theme.foreground.primary,
+});

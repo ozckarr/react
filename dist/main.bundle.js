@@ -236,6 +236,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _errorBoundary__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./errorBoundary */ "./src/components/errorBoundary.tsx");
 /* harmony import */ var _welcomeScreen__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./welcomeScreen */ "./src/components/welcomeScreen.tsx");
 /* harmony import */ var _monkey__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./monkey */ "./src/components/monkey.tsx");
+/* harmony import */ var _contexts_themeContext__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../contexts/themeContext */ "./src/contexts/themeContext.tsx");
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -255,6 +256,7 @@ var __extends = (undefined && undefined.__extends) || (function () {
 
 
 
+
 var Layout = react__WEBPACK_IMPORTED_MODULE_0___default.a.lazy(function () { return __webpack_require__.e(/*! import() | layout */ "layout").then(__webpack_require__.bind(null, /*! ./layout */ "./src/components/layout.tsx")); });
 /**
  * Application top level component. This is a good place for future
@@ -265,7 +267,7 @@ var App = /** @class */ (function (_super) {
     function App() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.state = {
-            isWelcomeScreenEnabled: true
+            isWelcomeScreenEnabled: false
         };
         _this.removeWelcomeScreen = function () {
             _this.setState({ isWelcomeScreenEnabled: false });
@@ -284,10 +286,11 @@ var App = /** @class */ (function (_super) {
     App.prototype.render = function () {
         return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Suspense"], { fallback: react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_spinner__WEBPACK_IMPORTED_MODULE_2__["default"], null) },
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["BrowserRouter"], null,
-                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_errorBoundary__WEBPACK_IMPORTED_MODULE_3__["default"], null,
-                    this.WelcomeScreen,
-                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Suspense"], { fallback: react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_monkey__WEBPACK_IMPORTED_MODULE_5__["Monkey"], null) },
-                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Layout, null))))));
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_contexts_themeContext__WEBPACK_IMPORTED_MODULE_6__["ThemeProvider"], null,
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_errorBoundary__WEBPACK_IMPORTED_MODULE_3__["default"], null,
+                        this.WelcomeScreen,
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Suspense"], { fallback: react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_monkey__WEBPACK_IMPORTED_MODULE_5__["Monkey"], null) },
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Layout, null)))))));
     };
     return App;
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]));
@@ -527,14 +530,12 @@ var __assign = (undefined && undefined.__assign) || function () {
 
 
 
-/* harmony default export */ __webpack_exports__["default"] = (function () {
+/* harmony default export */ __webpack_exports__["default"] = (function (props) {
+    var defaultSize = 6;
+    var size = props.size ? (props.size * defaultSize) : defaultSize;
     return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { style: __assign({}, _css__WEBPACK_IMPORTED_MODULE_2__["centeredContent"], _css__WEBPACK_IMPORTED_MODULE_2__["fullScreen"]) },
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_spinners__WEBPACK_IMPORTED_MODULE_1__["PropagateLoader"], { color: "white", size: 1.5, sizeUnit: "em" })));
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_spinners__WEBPACK_IMPORTED_MODULE_1__["PropagateLoader"], { color: "white", size: size, sizeUnit: "px" })));
 });
-var appearance = {
-    color: 'white',
-    fontSize: '1.5em'
-};
 
 
 /***/ }),
@@ -568,6 +569,89 @@ function WelcomeScreen(props) {
 var highlighted = {
     color: 'orange'
 };
+
+
+/***/ }),
+
+/***/ "./src/contexts/themeContext.tsx":
+/*!***************************************!*\
+  !*** ./src/contexts/themeContext.tsx ***!
+  \***************************************/
+/*! exports provided: ThemeContext, ThemeProvider */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ThemeContext", function() { return ThemeContext; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ThemeProvider", function() { return ThemeProvider; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+
+// Våra färgpaletter för de olika teman
+var themes = {
+    light: {
+        foreground: {
+            primary: '#0A0A0A',
+            secondary: '#1F1F1F',
+            darkened: '#000000'
+        },
+        background: {
+            primary: '#EEEEEE',
+            secondary: '#EAEAEA',
+        },
+    },
+    dark: {
+        foreground: {
+            primary: '#EEEEEE',
+            secondary: '#EAEAEA',
+            darkened: '#707070'
+        },
+        background: {
+            primary: '#0A0A0A',
+            secondary: '#1F1F1F',
+        },
+    },
+};
+// Här skapar vi react kontexten med default värden
+// (default värdena används inte om vi har ThemeContext.Provider i vårt träd)
+var ThemeContext = react__WEBPACK_IMPORTED_MODULE_0___default.a.createContext({
+    theme: themes.dark,
+    toggleTheme: function () { }
+});
+var ThemeProvider = /** @class */ (function (_super) {
+    __extends(ThemeProvider, _super);
+    function ThemeProvider(props) {
+        var _this = _super.call(this, props) || this;
+        _this.toggleTheme = function () {
+            _this.setState({
+                theme: _this.state.theme === themes.light ? themes.dark : themes.light
+            });
+        };
+        _this.state = {
+            theme: themes.dark,
+            toggleTheme: _this.toggleTheme
+        };
+        return _this;
+    }
+    ThemeProvider.prototype.render = function () {
+        return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ThemeContext.Provider, { value: this.state }, this.props.children));
+    };
+    return ThemeProvider;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component));
+
 
 
 /***/ }),

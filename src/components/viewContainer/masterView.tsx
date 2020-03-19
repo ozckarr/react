@@ -1,6 +1,6 @@
 import React, { CSSProperties } from 'react';
 import ViewSection from './viewSection';
-import ImageLink from './ImageLink';
+import ImageLink from './imageLink';
 
 interface Props {
     detailViews: string[]

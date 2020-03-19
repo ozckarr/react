@@ -80,22 +80,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+/* harmony import */ var _contexts_themeContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../contexts/themeContext */ "./src/contexts/themeContext.tsx");
+
 
 
 /** React function component */
 function Navbar() {
-    return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { style: navbar },
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], { to: "/", style: navbarItem }, "Kalle Korv")));
+    return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_contexts_themeContext__WEBPACK_IMPORTED_MODULE_2__["ThemeContext"].Consumer, null, function (_a) {
+        var theme = _a.theme, toggleTheme = _a.toggleTheme;
+        return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { style: navbar(theme) },
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], { to: "/", style: navbarItem(theme) }, "React Playground"),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { onClick: toggleTheme }, "Toggle")));
+    }));
 }
-var navbar = {
+var navbar = function (theme) { return ({
     height: '4em',
     minHeight: '4em',
-    background: 'black',
+    background: theme.background.primary,
     display: 'flex',
     alignItems: 'stretch',
+    justifyContent: 'space-between',
     padding: '0 1em'
-};
-var navbarItem = {
+}); };
+var navbarItem = function (theme) { return ({
     fontSize: '1.7em',
     margin: 0,
     padding: 0,
@@ -103,8 +110,8 @@ var navbarItem = {
     alignItems: 'center',
     cursor: 'pointer',
     textDecoration: 'none',
-    color: '#E1E1E1',
-};
+    color: theme.foreground.primary,
+}); };
 
 
 /***/ }),
@@ -127,7 +134,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var MasterView = react__WEBPACK_IMPORTED_MODULE_0___default.a.lazy(function () { return __webpack_require__.e(/*! import() | masterView */ "masterView").then(__webpack_require__.bind(null, /*! ./masterView */ "./src/components/viewContainer/masterView.tsx")); });
-var DetialView = react__WEBPACK_IMPORTED_MODULE_0___default.a.lazy(function () { return Promise.all(/*! import() | detailView */[__webpack_require__.e("vendors~detailView"), __webpack_require__.e("detailView")]).then(__webpack_require__.bind(null, /*! ./detailview/detailView */ "./src/components/viewContainer/detailview/detailView.tsx")); });
+var DetialView = react__WEBPACK_IMPORTED_MODULE_0___default.a.lazy(function () { return Promise.all(/*! import() | detailView */[__webpack_require__.e("vendors~detailView"), __webpack_require__.e("detailView")]).then(__webpack_require__.bind(null, /*! ./detailView/detailView */ "./src/components/viewContainer/detailView/detailView.tsx")); });
 /** React function component */
 function ViewContainer() {
     var detailViews = ['forest', 'sky', 'desert'];

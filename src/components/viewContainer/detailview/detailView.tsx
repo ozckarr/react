@@ -1,13 +1,10 @@
 import React, { Component, CSSProperties } from 'react';
-import { fullscreenAbsolute, fullScreen, centeredContent } from '../../../css';
+import { fullscreenAbsolute } from '../../../css';
 import { RouteComponentProps } from 'react-router-dom';
 import Modal from '../../modal';
-import ImageSection from './imageSection';
 import HeaderSection from './headerSection';
-import TextSection from './TextSection';
-import SmallImagesSection from './smallImagesSection';
-import axios from 'axios';
-
+import TextSection from './textSection';
+import ImageSection from './imageSection';
 
 interface Props extends RouteComponentProps {
     id: string
@@ -34,27 +31,16 @@ export default class DetailView extends Component<Props, State> {
     private openModal = () => this.setState({ isModalOpen: true });
     private closeModal = () => this.setState({ isModalOpen: false });
 
-
-    
     render() {
-        async function getImages() {
-            try {
-                const respone:any = await axios.get(`https://source.unsplash.com/1600x900/?forest`);
-                console.log(respone);
-            } catch (error){
-                console.error(error);
-            }
-        }
-
         return (
             <div style={container}>
+                <img src={this.imageSrc} style={{ ...fullscreenAbsolute }}/>
                 <div style={{ ...content, ...fullscreenAbsolute }}>
-                <HeaderSection whereAreWe={this.view}/>
-                <TextSection/>
-                <SmallImagesSection/>
-                <ImageSection imageSrc={this.imageSrc} />
-                    <div style={{ ...fullScreen, ...centeredContent }}>
-                        <button onClick={this.openModal}>Open Modal</button>
+                    
+                    <div style={flexContainer}>
+                        <HeaderSection view={this.view} openModal={this.openModal}/>
+                        <TextSection view={this.view}/>
+                        <ImageSection view={this.view}/>
                     </div>
 
                 </div>
@@ -76,11 +62,19 @@ const highlighted: CSSProperties = {
 }
 
 const content: CSSProperties = {
-    zIndex: 10
+    zIndex: 10,
+    background: 'rgba(0, 0, 0, 0.7)',
+    overflowY: 'auto'
 }
     
 const container: CSSProperties = {
     position: 'relative',
     width: '100%',
     height: '100%'
+}
+
+const flexContainer: CSSProperties = {
+    display: 'flex',
+    flexDirection: 'column',
+    padding: '1em'
 }

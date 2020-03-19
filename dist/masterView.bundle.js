@@ -1,8 +1,8 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["masterView"],{
 
-/***/ "./src/components/viewContainer/ImageLink.tsx":
+/***/ "./src/components/viewContainer/imageLink.tsx":
 /*!****************************************************!*\
-  !*** ./src/components/viewContainer/ImageLink.tsx ***!
+  !*** ./src/components/viewContainer/imageLink.tsx ***!
   \****************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -68,14 +68,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _viewSection__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./viewSection */ "./src/components/viewContainer/viewSection.tsx");
-/* harmony import */ var _ImageLink__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ImageLink */ "./src/components/viewContainer/ImageLink.tsx");
+/* harmony import */ var _imageLink__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./imageLink */ "./src/components/viewContainer/imageLink.tsx");
 
 
 
 /** React function component */
 function MasterView(props) {
     return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { style: container }, props.detailViews.map(function (view) { return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_viewSection__WEBPACK_IMPORTED_MODULE_1__["default"], { key: view },
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ImageLink__WEBPACK_IMPORTED_MODULE_2__["default"], { view: view }))); })));
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_imageLink__WEBPACK_IMPORTED_MODULE_2__["default"], { view: view }))); })));
 }
 var container = {
     display: 'flex',

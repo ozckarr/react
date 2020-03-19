@@ -1,32 +1,97 @@
-import React, {CSSProperties} from 'react'
+import React, { CSSProperties, Component } from 'react';
+import Axios, { AxiosResponse } from 'axios';
+import Spinner from '../../spinner';
 
-export default function TextSection(){
-    return (
-        <p style={textStyle}>Ska-badabadabadoo-belidabbelydabbladabbladabblabab-belibabbelibabbelibabbelabbelo-doobelidoo
-        Everybody stutters one way or the other
-        So check out my message to you
-        As a matter of fact, I don't let nothing hold you back
-        If the Scatman can do it, so can you
-        Everybody's saying that the Scatman stutters
-        But doesn't ever stutter when he sings
-        But what you don't know, I'm gonna tell you right now
-        That the stutter and the scat is the same thing to you
-        I'm the Scatman – Where's the Scatman?
-        I'm the Scatman
-        Why should we be pleasing in the politician heathens
-        Who would try to change the seasons if they could?
-        The state of the condition insults my intuitions
-        And it only makes me crazy and a heart like wood
-        Everybody stutters one way or the other
-        So check out my message to you
-        As a matter of fact, I'm letting nothing hold you back
-        If the Scatman can do it, brother, so can you
-        I'm the Scatman
-        </p>
-    )
+interface Props {
+    view: string
 }
 
-const textStyle:CSSProperties={
+interface State {
+    paragraphs: string[]
+    isLoading: boolean 
+}
+
+export default class TextSection extends Component<Props, State> {
+
+    state: State = {
+        paragraphs: [],
+        isLoading: true
+    }
+
+    get wikipediaApiUrl() {
+        return (
+            'http://en.wikipedia.org/w/api.php?action=parse&section=0&prop=text'
+        )
+    }
+
+    stripHtmlAndReferences(htmlText: string) {
+        var doc = new DOMParser().parseFromString(htmlText, 'text/html');
+        const text = doc.body.textContent || "";
+        return this.removeReferences(text)
+    }
+
+    removeReferences(text: string) {
+        return text.replace(/ *\[[^)]*\] */g, "");
+    }
+
+    handleResponse(response: AxiosResponse) {
+        const htmlPageText: string = response.data.parse.text['*'];
+        const paragraphs = this.exctractBeginingOfText(htmlPageText)
+        this.setState({ paragraphs, isLoading: false })
+    }
+
+    exctractBeginingOfText(htmlPageText: string): string[] {
+        // Split on <p>
+        const paragraphs = htmlPageText.split('<p>')
+        // Remove first content
+        paragraphs.shift();
+        // Trim end of last paragraph
+        let lastParapgraph = paragraphs.pop() || "";
+        lastParapgraph = lastParapgraph.substr(0, lastParapgraph.indexOf('</p>'))
+        paragraphs.push(lastParapgraph);
+        
+        return paragraphs.map((p) => this.stripHtmlAndReferences(p))
+    }
+
+    async componentDidMount() {
+        try {
+            const response = await Axios.get(this.wikipediaApiUrl, {
+                params: {
+                    page: this.props.view,
+                    origin: '*',
+                    format: 'json'
+                }
+            })
+            this.handleResponse(response);
+        } catch(error) {
+            console.error(error)
+        }
+    }
+
+    render() {
+        const { isLoading, paragraphs } = this.state
+        return (
+            <div style={root}>
+                {isLoading ? <Spinner/> : null}
+                {paragraphs.map((paragraph) =>
+                    <p key={paragraph.substr(0, 10)} style={text}>{paragraph}</p>
+                )}
+            </div>
+        )
+    }
+}
+
+const root: CSSProperties = {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    minHeight: '15em'
+}
+
+const text: CSSProperties = {
+    display: 'block',
+    lineHeight: '1.5',
+    fontSize: '1.1em',
     color: 'white',
-    marginLeft: '1em'
+    textShadow: '1px 1px 2px black'
 }
